@@ -6,7 +6,7 @@ export default function vitePlugin(userOptions = {}) {
 
 		encforce: 'pre',
 
-		async transform(src, id) {
+		async transform(src: string, id: string) {
 			if (id.endsWith('.md')) {
 				// extract frontend and content
 				const rawData = extractFrontmatterAndContent(src);
