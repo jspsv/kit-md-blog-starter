@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import type { MarkdownFrontmatter } from '$lib/markdown/types';
 import { error } from '@sveltejs/kit';
-import { getMarkdownFrontmatter } from '$lib/markdown';
+import { getMarkdownFrontmatter } from '$lib/utils';
 
 export const load = (async ({}) => {
 	const postsIndex: MarkdownFrontmatter[] = [
