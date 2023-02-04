@@ -24,6 +24,14 @@ pnpm run build
 pnpm run preview
 ```
 
+## Markdown support
+
+```bash
+pnpm i -D unified vfile \
+  remark-parse remark-frontmatter remark-gfm remark-smartypants remark-rehype \
+  rehype-raw rehype-stringify
+```
+
 <!-- ## old
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).

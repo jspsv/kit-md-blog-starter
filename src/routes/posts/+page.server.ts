@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types';
 import type { MarkdownFrontmatter } from '$lib/markdown/types';
 import { error } from '@sveltejs/kit';
+import { getMarkdownFrontmatter } from '$lib/markdown';
 
 export const load = (async ({}) => {
 	const postsIndex: MarkdownFrontmatter[] = [
@@ -13,6 +14,8 @@ export const load = (async ({}) => {
 			draft: true
 		}
 	];
+
+	const postsIndex0 = await getMarkdownFrontmatter('someFile.md');
 
 	if (!postsIndex.length) {
 		throw error(400, 'No posts exist.');
