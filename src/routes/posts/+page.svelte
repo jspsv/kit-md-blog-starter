@@ -8,7 +8,9 @@
 <div>
 	<h1>Posts</h1>
 
-	{#each data.postsIndex as metadata}
-		<PostCard {metadata} />
-	{/each}
+	<ol class="space-y-4">
+		{#each data.postsIndex as metadata}
+			<PostCard {metadata} />
+		{/each}
+	</ol>
 </div>

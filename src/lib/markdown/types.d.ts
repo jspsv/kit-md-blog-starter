@@ -2,6 +2,7 @@
 export interface MarkdownFrontmatter {
 	slug: string;
 	category: string;
+	tags?: string[];
 	title: string;
 	description: string;
 	date: string;

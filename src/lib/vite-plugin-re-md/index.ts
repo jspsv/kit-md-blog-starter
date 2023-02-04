@@ -28,8 +28,25 @@ export default function vitePlugin(userOptions = {}) {
 				// 	code
 				// };
 
+				// return {
+				// 	code: `export default ${JSON.stringify(content)}`
+				// };
+
+				// export const html = ${JSON.stringify(content)}
+				// export const frontmatter = ${JSON.stringify(frontmatter)}
+
+				const code = `
+        export async function Content() {
+          return {
+            html: ${JSON.stringify(content)}, 
+            frontmatter: ${JSON.stringify(frontmatter)}
+          }
+        }
+        export default Content;
+				`;
+
 				return {
-					code: `export default ${JSON.stringify(content)}`
+					code
 				};
 			}
 		}

@@ -3,6 +3,7 @@ title: 11ty blog starter with Tailwind CSS
 date: '2021-09-01'
 dateUpdated: '2021-10-01'
 description: A simple markdown blog starter project
+category: 'port'
 tags:
   - 'tailwind'
   - '11ty'
