@@ -1,5 +1,5 @@
 // meta data of a post
-export interface PostMeta {
+export interface MarkdownFrontmatter {
 	slug: string;
 	category: string;
 	title: string;
@@ -10,7 +10,7 @@ export interface PostMeta {
 }
 
 // post data
-export interface PostContent {
+export interface MarkdownContent {
 	category: string;
 	title: string;
 	description: string;

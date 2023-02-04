@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
-import type { PostMeta } from '$lib/markdown/types';
+import type { MarkdownFrontmatter } from '$lib/markdown/types';
 import { error } from '@sveltejs/kit';
 
 export const load = (async ({}) => {
-	const postsIndex: PostMeta[] = [
+	const postsIndex: MarkdownFrontmatter[] = [
 		{
 			slug: '/',
 			title: 'test post',

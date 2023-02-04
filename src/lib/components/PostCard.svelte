@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { PostMeta } from '$lib/markdown/types';
-	export let metadata: PostMeta;
+	import type { MarkdownFrontmatter } from '$lib/markdown/types';
+	export let metadata: MarkdownFrontmatter;
 </script>
 
 <a href={metadata.slug}>
