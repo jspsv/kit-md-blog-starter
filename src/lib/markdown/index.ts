@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
+import matter from 'gray-matter';
 
 // unified
 
@@ -28,14 +29,14 @@ import rehypeRaw from 'rehype-raw';
 
 // then process input
 
-export const renderMarkdown = async (content: string) => {
+export async function renderMarkdown(content: string | undefined) {
 	// TODO: provide path (fileURL)
 	const input = new VFile({ value: content });
 
 	// build parser
 	const parser = unified()
 		.use(remarkParse)
-		.use(remarkFrontmatter)
+		// .use(remarkFrontmatter)
 		.use(remarkGfm)
 		.use(smartypants)
 		.use(remarkRehype)
@@ -54,7 +55,7 @@ export const renderMarkdown = async (content: string) => {
 		html: String(vfile.value),
 		vfile
 	};
-};
+}
 
 export function getMdParser() {
 	const parser = unified()
@@ -67,4 +68,13 @@ export function getMdParser() {
 		.use(rehypeStringify);
 
 	return parser;
+}
+
+export function extractFrontmatterAndContent(source: string) {
+	try {
+		return matter(source);
+	} catch (error) {
+		// TODO: check if front matter follows defined schema
+		console.error(error);
+	}
 }

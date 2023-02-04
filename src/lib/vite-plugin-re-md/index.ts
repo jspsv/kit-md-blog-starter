@@ -1,4 +1,4 @@
-import { renderMarkdown } from '../markdown';
+import { renderMarkdown, extractFrontmatterAndContent } from '../markdown';
 
 export default function vitePlugin(userOptions = {}) {
 	return {
@@ -8,53 +8,30 @@ export default function vitePlugin(userOptions = {}) {
 
 		async transform(src, id) {
 			if (id.endsWith('.md')) {
-				// 1. Extract frontend and content (using gray-matter)
-				// 2. Pass the content string to markdown
-				const code = `${JSON.stringify(src.toString('utf-8'))}`;
+				// extract frontend and content
+				const rawData = extractFrontmatterAndContent(src);
 
-				const renderResult = await renderMarkdown(src);
-				const html = renderResult.html;
+				// pass the content string to markdown
+				const frontmatter = rawData?.data;
+				const renderResult = await renderMarkdown(rawData?.content);
+				const content = renderResult.html;
 
-				// const code = 'some content';
-				// const frontmatter = {
-				// 	title: 'Cool title',
-				// 	tags: 'Typescript'
-				// };
+				// console.log(content);
 				// console.log(frontmatter);
 
-				console.log(html);
+				// const code = `
+				// export const html = ${JSON.stringify(content)}
+				// export const frontmatter = ${JSON.stringify(frontmatter)}
+				// `;
 
-				// return { code, frontmatter };
+				// return {
+				// 	code
+				// };
 
-				return { code };
+				return {
+					code: `export default ${JSON.stringify(content)}`
+				};
 			}
 		}
-
-		// async transform(src, id) {
-		// 	if (id.endsWith('.md')) {
-		// 		const parser = getMdParser();
-
-		// 		const htmlContent = await parser.process('# Heading 1');
-
-		// 		return {
-		// 			code: `export default ${JSON.stringify(htmlContent.toString('utf8'))}`,
-		// 			map: { mappings: '' }
-		// 		};
-		// 	}
-		// }
-
-		// async transform(src, id) {
-		// 	if (id.endsWith('.md')) {
-		// 		console.error('got .md file');
-		// 	}
-
-		// 	const html = '<h1>Heading 1</h1>';
-
-		// 	const code = `export default ${JSON.stringify(html)}`;
-
-		// 	return {
-		// 		code
-		// 	};
-		// }
 	};
 }
