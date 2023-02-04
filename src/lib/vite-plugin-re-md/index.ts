@@ -16,25 +16,6 @@ export default function vitePlugin(userOptions = {}) {
 				const renderResult = await renderMarkdown(rawData?.content);
 				const content = renderResult.html;
 
-				// console.log(content);
-				// console.log(frontmatter);
-
-				// const code = `
-				// export const html = ${JSON.stringify(content)}
-				// export const frontmatter = ${JSON.stringify(frontmatter)}
-				// `;
-
-				// return {
-				// 	code
-				// };
-
-				// return {
-				// 	code: `export default ${JSON.stringify(content)}`
-				// };
-
-				// export const html = ${JSON.stringify(content)}
-				// export const frontmatter = ${JSON.stringify(frontmatter)}
-
 				const code = `
         export async function Content() {
           return {
