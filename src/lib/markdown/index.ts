@@ -1,7 +1,6 @@
 import { unified } from 'unified';
 import { VFile } from 'vfile';
 import remarkParse from 'remark-parse';
-// import remarkFrontmatter from 'remark-frontmatter';
 import smartypants from 'remark-smartypants';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
@@ -10,6 +9,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
 import matter from 'gray-matter';
+
+import remarkShiki from './remark-shiki';
 
 // unified
 
@@ -35,11 +36,17 @@ export async function renderMarkdown(content: string | undefined) {
 	// TODO: provide path (fileURL)
 	const input = new VFile({ value: content });
 
-	// build parser
-	const parser = unified()
-		.use(remarkParse)
-		.use(remarkGfm)
-		.use(smartypants)
+	// transform markdown
+	let parser = unified().use(remarkParse).use(remarkGfm).use(smartypants);
+
+	// create shiki highlighter and pass it to the plugin
+	// const highlighter = await getHighlighter({ theme: 'nord' });
+	// parser.use(remarkShiki, { highlighter });
+	const highlighterOpts = { theme: 'nord' };
+	parser.use([await remarkShiki(highlighterOpts)]);
+
+	// transform html
+	parser
 		.use(remarkRehype)
 		.use(rehypeSlug)
 		.use(rehypeAutolinkHeadings)
@@ -59,19 +66,6 @@ export async function renderMarkdown(content: string | undefined) {
 		vfile
 	};
 }
-
-// export function getMdParser() {
-// 	const parser = unified()
-// 		.use(remarkParse)
-// 		.use(remarkFrontmatter)
-// 		.use(remarkGfm)
-// 		.use(smartypants)
-// 		.use(remarkRehype)
-// 		.use(rehypeRaw)
-// 		.use(rehypeStringify);
-
-// 	return parser;
-// }
 
 export function extractFrontmatterAndContent(source: string) {
 	try {
