@@ -14,7 +14,7 @@ export default function vitePlugin(userOptions = {}) {
 				// pass the content string to markdown
 				const frontmatter = rawData?.data;
 				const renderResult = await renderMarkdown(rawData?.content);
-				const content = renderResult.html;
+				const content = { content: renderResult.html };
 
 				const code = `
         export async function Content() {

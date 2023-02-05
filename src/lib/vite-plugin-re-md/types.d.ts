@@ -1,4 +1,4 @@
 declare module '*.md' {
-	const Content: Function;
+	const Content: Promise<Function>;
 	export default Content;
 }
