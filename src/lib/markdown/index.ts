@@ -1,10 +1,12 @@
 import { unified } from 'unified';
 import { VFile } from 'vfile';
 import remarkParse from 'remark-parse';
-import remarkFrontmatter from 'remark-frontmatter';
+// import remarkFrontmatter from 'remark-frontmatter';
 import smartypants from 'remark-smartypants';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
 import matter from 'gray-matter';
@@ -36,10 +38,11 @@ export async function renderMarkdown(content: string | undefined) {
 	// build parser
 	const parser = unified()
 		.use(remarkParse)
-		// .use(remarkFrontmatter)
 		.use(remarkGfm)
 		.use(smartypants)
 		.use(remarkRehype)
+		.use(rehypeSlug)
+		.use(rehypeAutolinkHeadings)
 		.use(rehypeRaw)
 		.use(rehypeStringify);
 
@@ -57,18 +60,18 @@ export async function renderMarkdown(content: string | undefined) {
 	};
 }
 
-export function getMdParser() {
-	const parser = unified()
-		.use(remarkParse)
-		.use(remarkFrontmatter)
-		.use(remarkGfm)
-		.use(smartypants)
-		.use(remarkRehype)
-		.use(rehypeRaw)
-		.use(rehypeStringify);
+// export function getMdParser() {
+// 	const parser = unified()
+// 		.use(remarkParse)
+// 		.use(remarkFrontmatter)
+// 		.use(remarkGfm)
+// 		.use(smartypants)
+// 		.use(remarkRehype)
+// 		.use(rehypeRaw)
+// 		.use(rehypeStringify);
 
-	return parser;
-}
+// 	return parser;
+// }
 
 export function extractFrontmatterAndContent(source: string) {
 	try {
