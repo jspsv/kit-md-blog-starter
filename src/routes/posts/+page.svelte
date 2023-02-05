@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import PostCard from '$lib/components/PostCard.svelte';
+	import PostSummary from '$lib/components/PostSummary.svelte';
 
 	export let data: PageData;
 </script>
@@ -10,7 +10,7 @@
 
 	<ol class="space-y-4">
 		{#each data.postsIndex as metadata}
-			<PostCard {metadata} />
+			<PostSummary {metadata} />
 		{/each}
 	</ol>
 </div>

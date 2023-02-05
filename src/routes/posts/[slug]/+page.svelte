@@ -1,11 +1,11 @@
 <script lang="ts">
-	import PostCard from '$lib/components/PostCard.svelte';
+	import PostTitle from '$lib/components/PostTitle.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
 <div>
-	<PostCard metadata={data.postMeta} />
+	<PostTitle metadata={data.postMeta} />
 	{@html data.postContent.content}
 </div>
